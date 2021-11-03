@@ -1,5 +1,5 @@
-import * as CurrentWeatherActions from "./forecastActions";
-import * as HistoryActions from "./forecastActions";
+import * as CurrentWeatherActions from './forecastActions';
+import * as HistoryActions from './forecastActions';
 
 export default {
   ...CurrentWeatherActions,

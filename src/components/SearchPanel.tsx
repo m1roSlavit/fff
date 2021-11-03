@@ -1,22 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { SearchIcon } from "@heroicons/react/outline";
-import styled from "styled-components";
-import { toast } from "react-toastify";
+import React, { useState, useEffect } from 'react';
+import { SearchIcon } from '@heroicons/react/outline';
+import styled from 'styled-components';
+import { toast } from 'react-toastify';
 
-import { Button } from "./Button";
-import { Input } from "./Input";
+import { Button } from './Button';
+import { Input } from './Input';
 
-import { useDispatch } from "react-redux";
-import { fetchCurrentWeather } from "../store/actions/forecastActions";
-import { useTypedSelector } from "../hooks/useTypedSelector";
-import { addItemToSearchHistory } from "../store/actions/historyActions";
+import { useDispatch } from 'react-redux';
+import {
+  fetchCurrentWeather,
+  fetchForecastForWeek,
+} from '../store/actions/forecastActions';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import { addItemToSearchHistory } from '../store/actions/historyActions';
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const onSearchHandle = () => {
-    dispatch(fetchCurrentWeather(searchQuery, true));
+  const onSearchFormSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    dispatch(fetchCurrentWeather(searchQuery));
+    dispatch(fetchForecastForWeek(searchQuery));
+    dispatch(addItemToSearchHistory(searchQuery));
   };
 
   const onSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +30,11 @@ const SearchPanel = () => {
   };
 
   const { currentWeather } = useTypedSelector((state) => state.forecast);
+
+  useEffect(() => {
+    dispatch(fetchCurrentWeather('Kiev'));
+    dispatch(fetchForecastForWeek('Kiev'));
+  }, [dispatch]);
 
   useEffect(() => {
     if (currentWeather.error) {
@@ -34,7 +45,7 @@ const SearchPanel = () => {
   }, [currentWeather.error]);
 
   return (
-    <Wrapper>
+    <Wrapper onSubmit={onSearchFormSubmit}>
       <SearchInputWrapper>
         <SearchIcon />
         <SearchInput value={searchQuery} onChange={onSearchInputChange} />
@@ -42,7 +53,7 @@ const SearchPanel = () => {
       <Button
         disabled={!searchQuery}
         loading={currentWeather.loading}
-        onClick={() => onSearchHandle()}
+        type='submit'
       >
         Search
       </Button>
@@ -50,7 +61,7 @@ const SearchPanel = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   display: flex;
 `;
 

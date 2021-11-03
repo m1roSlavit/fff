@@ -1,5 +1,5 @@
-import React, { ButtonHTMLAttributes } from "react";
-import styled, { keyframes } from "styled-components";
+import React, { ButtonHTMLAttributes } from 'react';
+import styled, { keyframes } from 'styled-components';
 
 interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
@@ -50,7 +50,7 @@ const StyledButton = styled.button<{ disabled?: boolean }>`
   transition: 0.3s;
   box-shadow: 2px 2px 8px 0px rgba(34, 60, 80, 0.1);
   font-size: 15px;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
 
   &:hover {

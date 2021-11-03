@@ -1,11 +1,16 @@
+interface SearchHistoryItem {
+  id: string;
+  label: string;
+}
+
 export interface HistoryState {
   searchHistory: {
-    list: string[];
+    list: SearchHistoryItem[];
   };
 }
 
 export enum HistoryActionTypes {
-  ADD_ITEM_TO_SEARCH_HISTORY = "ADD_ITEM_TO_SEARCH_HISTORY",
+  ADD_ITEM_TO_SEARCH_HISTORY = 'ADD_ITEM_TO_SEARCH_HISTORY',
 }
 
 export interface addItemToSearchHistoryAction {

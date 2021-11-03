@@ -1,19 +1,19 @@
-import { down } from "styled-breakpoints";
-import styled from "styled-components";
+import { down } from 'styled-breakpoints';
+import styled from 'styled-components';
 
-import { MainLayout } from "../layouts/MainLayout";
-import CurrentWeather from "./CurrentWeather";
-import SearchHistory from "./SearchHistory";
+import { MainLayout } from '../layouts/MainLayout';
 
-import SearchPanel from "./SearchPanel";
-import { Title, TitleType } from "./Typography";
-import WeekForecast from "./WeekForecast";
+import CurrentWeather from './CurrentWeather';
+import SearchHistory from './SearchHistory';
+import SearchPanel from './SearchPanel';
+import { Title, TitleType } from './Typography';
+import WeekForecast from './WeekForecast';
 
 const App = () => {
   return (
     <MainLayout>
       <ContentWrapper>
-        <MainTitle type={TitleType.MEDIUM} as="h1">
+        <MainTitle type={TitleType.MEDIUM} as='h1'>
           Weather Forecast
         </MainTitle>
         <Section>
@@ -34,7 +34,7 @@ const App = () => {
 const MainTitle = styled(Title)`
   margin-bottom: 22px;
 
-  ${down("sm")} {
+  ${down('sm')} {
     margin-bottom: 32px;
   }
 `;

@@ -2,18 +2,18 @@ import {
   ForecastActions,
   ForecastActionTypes,
   ForecastState,
-} from "../../types/forecast";
+} from '../../types/forecast';
 
 const initialState: ForecastState = {
   currentWeather: {
     data: null,
     loading: false,
-    error: "",
+    error: '',
   },
   forecastForWeek: {
     data: null,
     loading: false,
-    error: "",
+    error: '',
   },
 };
 
@@ -26,9 +26,9 @@ export const forecastReducer = (
       return {
         ...state,
         currentWeather: {
-          data: null,
+          ...state.currentWeather,
           loading: true,
-          error: "",
+          error: '',
         },
       };
     case ForecastActionTypes.FETCH_CURRENT_WEATHER_SUCCESS:
@@ -37,14 +37,41 @@ export const forecastReducer = (
         currentWeather: {
           data: action.payload,
           loading: false,
-          error: "",
+          error: '',
         },
       };
     case ForecastActionTypes.FETCH_CURRENT_WEATHER_FAILURE:
       return {
         ...state,
         currentWeather: {
-          data: null,
+          ...state.currentWeather,
+          loading: false,
+          error: action.payload,
+        },
+      };
+    case ForecastActionTypes.FETCH_FORECAST_FOR_WEEK:
+      return {
+        ...state,
+        forecastForWeek: {
+          ...state.forecastForWeek,
+          loading: true,
+          error: '',
+        },
+      };
+    case ForecastActionTypes.FETCH_FORECAST_FOR_WEEK_SUCCESS:
+      return {
+        ...state,
+        forecastForWeek: {
+          data: action.payload,
+          loading: false,
+          error: '',
+        },
+      };
+    case ForecastActionTypes.FETCH_FORECAST_FOR_WEEK_FAILURE:
+      return {
+        ...state,
+        forecastForWeek: {
+          ...state.forecastForWeek,
           loading: false,
           error: action.payload,
         },

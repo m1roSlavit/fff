@@ -1,7 +1,7 @@
 import {
   addItemToSearchHistoryAction,
   HistoryActionTypes,
-} from "../../types/history";
+} from '../../types/history';
 
 export const addItemToSearchHistory = (
   payload: string

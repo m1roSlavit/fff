@@ -1,9 +1,12 @@
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
-import { useTypedSelector } from "../hooks/useTypedSelector";
-import { fetchCurrentWeather } from "../store/actions/forecastActions";
-import { Link } from "./Link";
-import { Title, TitleType } from "./Typography";
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+import {
+  fetchCurrentWeather,
+  fetchForecastForWeek,
+} from '../store/actions/forecastActions';
+import { Link } from './Link';
+import { Title, TitleType } from './Typography';
 
 const SearchHistory = () => {
   const dispatch = useDispatch();
@@ -11,18 +14,21 @@ const SearchHistory = () => {
   const { searchHistory } = useTypedSelector((state) => state.history);
 
   const onHistoryItemClick = (cityName: string) => {
-    dispatch(fetchCurrentWeather(cityName, false));
+    dispatch(fetchCurrentWeather(cityName));
+    dispatch(fetchForecastForWeek(cityName));
   };
 
   return (
     <Wrapper>
-      <Title type={TitleType.MEDIUM} as="h3">
+      <Title type={TitleType.MEDIUM} as='h3'>
         Last 10 queries
       </Title>
       <HistoryList>
         {searchHistory.list.length ? (
-          searchHistory.list.map((label) => (
-            <Link onClick={() => onHistoryItemClick(label)}>{label}</Link>
+          searchHistory.list.map((item) => (
+            <Link key={item.id} onClick={() => onHistoryItemClick(item.label)}>
+              {item.label}
+            </Link>
           ))
         ) : (
           <NoQueriesAlertMessage>
@@ -56,6 +62,7 @@ const HistoryList = styled.div`
 
 const NoQueriesAlertMessage = styled.div`
   font-size: 16px;
+  color: #5a5a5a;
 `;
 
 export default SearchHistory;
