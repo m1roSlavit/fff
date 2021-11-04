@@ -1,27 +1,28 @@
-import styled from 'styled-components';
-import { useTypedSelector } from '../hooks/useTypedSelector';
-import { Title, TitleType } from './Typography';
-
+import { CloudIcon } from '@heroicons/react/outline';
 import {
   ChevronDownIcon,
   ChevronUpIcon,
   ArrowRightIcon,
 } from '@heroicons/react/solid';
-
-import { CloudIcon } from '@heroicons/react/outline';
 import { down, up } from 'styled-breakpoints';
+import styled from 'styled-components';
+
+import { useError } from '../hooks/useError';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+
 import CurrentWeatherPlaceholder from './CurrentWeatherPlaceholder';
+import { Title, TitleType } from './Typography';
 
 const CurrentWeather = () => {
-  const { data, loading } = useTypedSelector(
+  const { data, loading, error } = useTypedSelector(
     (state) => state.forecast.currentWeather
   );
+
+  useError(error);
 
   if (loading) {
     return <CurrentWeatherPlaceholder />;
   }
-
-  console.log(data?.wind.deg);
 
   return (
     <Wrapper>
@@ -44,11 +45,11 @@ const CurrentWeather = () => {
           <MinMaxTemp>
             <div>
               <ChevronDownIcon />
-              {data?.main.temp_min}°C
+              {data?.main.tempMin}°C
             </div>
             <div>
               <ChevronUpIcon />
-              {data?.main.temp_max}°C
+              {data?.main.tempMax}°C
             </div>
           </MinMaxTemp>
         </div>

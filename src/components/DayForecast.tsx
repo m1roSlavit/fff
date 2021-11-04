@@ -1,7 +1,9 @@
 import moment from 'moment';
 import { down } from 'styled-breakpoints';
 import styled from 'styled-components';
+
 import { IDayWeather } from '../types/forecast';
+
 import { Title, TitleType } from './Typography';
 
 interface IDayForecastProps {
@@ -9,7 +11,7 @@ interface IDayForecastProps {
 }
 
 const DayForecast: React.FC<IDayForecastProps> = ({ dayForecast }) => {
-  const daySlug = moment(dayForecast.dt_txt).format('dddd');
+  const daySlug = moment(dayForecast.dtTxt).format('dddd');
 
   return (
     <Wrapper>

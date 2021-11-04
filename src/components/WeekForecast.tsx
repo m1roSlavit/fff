@@ -1,11 +1,16 @@
 import { down } from 'styled-breakpoints';
 import styled from 'styled-components';
+
+import { useError } from '../hooks/useError';
 import { useTypedSelector } from '../hooks/useTypedSelector';
+
 import DayForecast from './DayForecast';
 import WeekForecastPlaceholder from './WeekForecastPlaceholder';
 
 const WeekForecast = () => {
   const { forecastForWeek } = useTypedSelector((state) => state.forecast);
+
+  useError(forecastForWeek.error);
 
   if (forecastForWeek.loading) {
     return <WeekForecastPlaceholder />;

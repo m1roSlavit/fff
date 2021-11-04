@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+
 import { useTypedSelector } from '../hooks/useTypedSelector';
 import {
   fetchCurrentWeather,
   fetchForecastForWeek,
 } from '../store/actions/forecastActions';
+
 import { Link } from './Link';
 import { Title, TitleType } from './Typography';
 

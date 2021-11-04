@@ -1,20 +1,18 @@
-interface IWeatherInfo {
+export interface IWeatherInfo {
   id: number;
   main: string;
   description: string;
   icon: string;
 }
 
-interface IWeatherMainInfo {
+export interface IWeatherMainInfo {
   temp: number;
-  feels_like: number;
-  temp_min: number;
-  temp_max: number;
+  tempMin: number;
+  tempMax: number;
   pressure: number;
-  humidity: number;
 }
 
-interface IWindInfo {
+export interface IWindInfo {
   speed: number;
   deg: number;
 }
@@ -30,11 +28,32 @@ export interface IDayWeather {
   id: string;
   weather: IWeatherInfo[];
   main: IWeatherMainInfo;
+  dtTxt: string;
+}
+
+export interface IWeatherMainInfoRes {
+  temp: number;
+  temp_min: number;
+  temp_max: number;
+  pressure: number;
+}
+
+export interface ICurrentWeatherRes {
+  weather: IWeatherInfo[];
+  main: IWeatherMainInfoRes;
+  wind: IWindInfo;
+  name: string;
+}
+
+export interface IDayWeatherRes {
+  id: string;
+  weather: IWeatherInfo[];
+  main: IWeatherMainInfoRes;
   dt_txt: string;
 }
 
 export interface IForecastForWeekRes {
-  list: IDayWeather[];
+  list: IDayWeatherRes[];
 }
 
 export interface ForecastState {

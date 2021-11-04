@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import { forecastReducer } from './forecastReducer';
 import { historyReducer } from './historyReducer';
 

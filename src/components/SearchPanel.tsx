@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
 import { SearchIcon } from '@heroicons/react/outline';
-import styled from 'styled-components';
-import { toast } from 'react-toastify';
-
-import { Button } from './Button';
-import { Input } from './Input';
-
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
+
 import {
   fetchCurrentWeather,
   fetchForecastForWeek,
 } from '../store/actions/forecastActions';
-import { useTypedSelector } from '../hooks/useTypedSelector';
 import { addItemToSearchHistory } from '../store/actions/historyActions';
+import { useTypedSelector } from '../hooks/useTypedSelector';
+
+import { Button } from './Button';
+import { Input } from './Input';
 
 const SearchPanel = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState('');
+  const { currentWeather } = useTypedSelector((state) => state.forecast);
 
   const onSearchFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -29,20 +29,10 @@ const SearchPanel = () => {
     setSearchQuery(e.target.value);
   };
 
-  const { currentWeather } = useTypedSelector((state) => state.forecast);
-
   useEffect(() => {
     dispatch(fetchCurrentWeather('Kiev'));
     dispatch(fetchForecastForWeek('Kiev'));
   }, [dispatch]);
-
-  useEffect(() => {
-    if (currentWeather.error) {
-      toast.error(currentWeather.error, {
-        position: toast.POSITION.BOTTOM_LEFT,
-      });
-    }
-  }, [currentWeather.error]);
 
   return (
     <Wrapper onSubmit={onSearchFormSubmit}>
